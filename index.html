@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crossover Footing Chart</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:sans-serif;margin:0;padding:12px;background:#f6f2e8;color:#222;max-width:720px}
+h1{font-size:22px;margin:0 0 4px}
+p{margin:4px 0 12px;font-size:14px}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #b9b19c;padding:4px;font-size:14px;text-align:left}
+th{background:#e4dcc6}
+input[type=text]{width:100%;min-width:0;min-height:36px;font-size:14px;border:0;background:transparent;padding:2px 4px}
+input[type=text]:placeholder-shown{background:repeating-linear-gradient(45deg,#eee7d4,#eee7d4 4px,#f6f2e8 4px,#f6f2e8 8px)}
+input[type=checkbox]{width:24px;height:24px}
+td.g{text-align:center;width:56px}
+.note{background:#fff;border:1px solid #b9b19c;padding:8px;margin:10px 0}
+.tag{font-size:12px;background:#e9c46a;padding:1px 6px;border-radius:8px}
+</style></head><body>
+<script data-bean-store>(function(){if(typeof location!=='undefined'&&location&&location.protocol==='about:'&&typeof document!=='undefined'&&document.addEventListener){document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target==='_blank')return;e.preventDefault();try{location.hash=a.getAttribute('href')}catch(x){}},true)}if(typeof window==='undefined')return;try{window.localStorage.getItem('x');return}catch(e){}var d=Object.assign({},window.__BEAN_SAVED||{});function post(){try{parent.postMessage({type:'bean-store',data:d},'*')}catch(e){}}var ls={getItem:function(k){return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null},setItem:function(k,v){d[k]=String(v);post()},removeItem:function(k){delete d[k];post()},clear:function(){d={};post()},key:function(i){return Object.keys(d)[i]||null}};Object.defineProperty(ls,'length',{get:function(){return Object.keys(d).length}});try{Object.defineProperty(window,'localStorage',{value:ls,configurable:true})}catch(e){}})();</script>
+<h1>Fascination crossover: foot by foot</h1>
+<p>Striped cells are blank on purpose: the sources don't give it, or I haven't checked yet. Tick Guess if what you typed in a row is a guess. Anything you type is saved in this browser.</p>
+<table id="t"><thead><tr><th>Section</th><th>Left foot</th><th>Right foot</th><th>Guess?</th></tr></thead><tbody></tbody></table>
+<div class="note"><b>Which parts are guesses</b> <span class="tag">note</span><br><input type="text" data-k="guesses" aria-label="Which parts are guesses" placeholder="e.g. every row so far is a guess"></div>
+<div class="note"><b>Combo 209</b> <span class="tag">as it stands</span><br><input type="text" data-k="n209" aria-label="Combo 209 note" placeholder="note, not confirmed"></div>
+<div class="note"><b>Combo 442</b> <span class="tag">as it stands</span><br><input type="text" data-k="n442" aria-label="Combo 442 note" placeholder="note, not confirmed"></div>
+<script>
+var body=document.querySelector("#t tbody");
+function key(k){return "footchart_"+k}
+for(var i=1;i<=6;i++){
+  var tr=document.createElement("tr");
+  tr.innerHTML='<td>Crossover '+i+'</td><td><input type="text" data-k="L'+i+'" aria-label="Crossover '+i+' left foot" placeholder="blank"></td><td><input type="text" data-k="R'+i+'" aria-label="Crossover '+i+' right foot" placeholder="blank"></td><td class="g"><input type="checkbox" data-k="G'+i+'" aria-label="Crossover '+i+' is a guess"></td>';
+  body.appendChild(tr);
+}
+var ins=document.querySelectorAll("input");
+for(var j=0;j<ins.length;j++){
+  (function(el){
+    var k=key(el.getAttribute("data-k")),cb=el.type==="checkbox";
+    try{var v=localStorage.getItem(k);if(cb)el.checked=v==="1";else el.value=v||""}catch(e){}
+    var save=function(){try{localStorage.setItem(k,cb?(el.checked?"1":"0"):el.value)}catch(e){}};
+    if(cb)el.onchange=save;else el.oninput=save;
+  })(ins[j]);
+}
+</script></body></html>
